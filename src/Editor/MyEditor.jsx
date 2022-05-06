@@ -2,17 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react'
 import { createEditor } from 'slate'
 import { Slate, Editable, withReact, DefaultEditable } from 'slate-react'
 import MyToolbar from './MyToolbar'
-import './MyEditor.css'
-
-const initialValue = [
-    {
-        type: 'paragraph', children: [
-            {
-                text: 'A line of text in a paragraph'
-            }
-        ]
-    }
-]
+import Header from '../components/Header'
 
 const Leaf = props => {
     let { attributes, children, leaf } = props
@@ -28,9 +18,15 @@ const Leaf = props => {
     return <span {...attributes}>{children}</span>
 }
 
-const MyEditor = () => {
+const MyEditor = (props) => {
+    const { valueChangeCB, initialValue } = props
     const [value, setValue] = useState(initialValue)
     const editor = useMemo(() => withReact(createEditor()), [])
+
+    const handleValueChange = (newValue) => {
+        setValue(newValue)
+        valueChangeCB(newValue)
+    }
 
     const renderLeaf = useCallback((props) => {
         return <Leaf {...props}/>
@@ -38,7 +34,12 @@ const MyEditor = () => {
 
     return (
         <div className={'editorWrap'}>
-            <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
+            <Header text={'编辑器'} />
+            <Slate
+                editor={editor}
+                value={value}
+                onChange={(value) => handleValueChange(value)}
+            >
                 <Editable
                     className={'editableWrap'}
                     placeholder="随便输入"
