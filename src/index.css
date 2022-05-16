@@ -21,6 +21,8 @@ div {
     border: 1px solid grey;
     background-clip: content-box;
     padding: 20px;
+    max-width: 48vw;
+    word-break: break-word;
 }
 
 .main {
@@ -55,8 +57,10 @@ div {
 
 .editableWrap {
     width: 100%;
-    height: 375px;
+    min-height: 375px;
+    height: auto;
     border-bottom: 1px solid grey;
+    padding-bottom: 20px;
 }
 
 .toolbarWrap {
@@ -71,5 +75,11 @@ div {
 .toolbarWrap button {
     margin-right: 20px;
     cursor: pointer;
+    background: none;
+}
+
+.toolbarWrap button.active {
+    color: deepskyblue;
+    border-color: deepskyblue;
 }
 
