@@ -1,6 +1,6 @@
 import MyEditor from '../Editor/MyEditor'
-import Content from '../components/Content/Content'
-import Readonly from '../components/Readonly/Readonly'
+import Content from '../components/Content'
+import Readonly from '../components/Readonly'
 import { useState } from 'react'
 
 const initialValue = [

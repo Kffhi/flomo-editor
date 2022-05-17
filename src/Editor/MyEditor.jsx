@@ -1,40 +1,35 @@
 import React, { useState, useMemo, useCallback } from 'react'
 import { createEditor } from 'slate'
-import { Slate, Editable, withReact, DefaultEditable } from 'slate-react'
+import { Slate, Editable, withReact } from 'slate-react'
 import MyToolbar from './MyToolbar'
 import Header from '../components/Header'
-
-const Leaf = props => {
-    let { attributes, children, leaf } = props
-    if (leaf.bold) {
-        children = <strong>{children}</strong>
-    }
-    if (leaf.italic) {
-        children = <i>{children}</i>
-    }
-    if (leaf.underline) {
-        children = <u>{children}</u>
-    }
-    return <span {...attributes}>{children}</span>
-}
+import Leaf from './Leaf'
+import Element from './Element'
 
 const MyEditor = (props) => {
     const { valueChangeCB, initialValue } = props
     const [value, setValue] = useState(initialValue)
     const editor = useMemo(() => withReact(createEditor()), [])
 
+    // 通知外部组件修改数据
     const handleValueChange = (newValue) => {
         setValue(newValue)
         valueChangeCB(newValue)
     }
 
+    // 渲染文本
     const renderLeaf = useCallback((props) => {
         return <Leaf {...props}/>
     }, [])
 
+    // 渲染段落
+    const renderElement = useCallback((props) => {
+        return <Element {...props}/>
+    }, [])
+
     return (
         <div className={'editorWrap'}>
-            <Header text={'编辑器'} />
+            <Header text={'编辑器'}/>
             <Slate
                 editor={editor}
                 value={value}
@@ -44,6 +39,7 @@ const MyEditor = (props) => {
                     className={'editableWrap'}
                     placeholder="随便输入"
                     renderLeaf={renderLeaf}
+                    renderElement={renderElement}
                 />
                 <MyToolbar editor={editor}></MyToolbar>
             </Slate>
