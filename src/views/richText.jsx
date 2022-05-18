@@ -5,9 +5,111 @@ import { useState } from 'react'
 
 const initialValue = [
     {
-        type: 'paragraph', children: [
+        "type": "paragraph",
+        "children": [
             {
-                text: 'A line of text in a paragraph'
+                "text": "普通文本"
+            },
+            {
+                "text": "加粗",
+                "bold": true
+            },
+            {
+                "text": "普通文本"
+            },
+            {
+                "text": "斜体",
+                "italic": true
+            }
+        ]
+    },
+    {
+        "type": "bulleted-list",
+        "children": [
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "text": "无"
+                    },
+                    {
+                        "text": "序列",
+                        "bold": true,
+                        "italic": true
+                    },
+                    {
+                        "text": "表"
+                    }
+                ]
+            },
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "text": "列表项"
+                    }
+                ]
+            },
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "text": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "paragraph",
+        "children": [
+            {
+                "text": "普通文本"
+            }
+        ]
+    },
+    {
+        "type": "numbered-list",
+        "children": [
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "text": "有序列表"
+                    }
+                ]
+            },
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "text": "列表+1111"
+                    }
+                ]
+            },
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "text": "再来"
+                    }
+                ]
+            },
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "text": ""
+                    }
+                ]
+            },
+            {
+                "type": "list-item",
+                "children": [
+                    {
+                        "text": ""
+                    }
+                ]
             }
         ]
     }

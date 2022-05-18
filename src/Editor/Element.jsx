@@ -3,7 +3,34 @@ import React from 'react'
 
 const Element = (props) => {
     const { attributes, children, element } = props
-    return <span {...attributes}>{children}</span>
+    switch (element.type) {
+        case 'list-item':
+            return (
+                <li {...attributes}>
+                    {children}
+                </li>
+            )
+        case 'bulleted-list':
+            return (
+                <ul {...attributes}>
+                    {children}
+                </ul>
+            )
+            break
+        case 'numbered-list':
+            return (
+                <ol {...attributes}>
+                    {children}
+                </ol>
+            )
+            break
+        default:
+            return (
+                <p {...attributes}>
+                    {children}
+                </p>
+            )
+    }
 }
 
 export default Element
