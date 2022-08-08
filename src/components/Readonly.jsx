@@ -5,7 +5,7 @@ import React, { useMemo } from 'react'
 
 const Readonly = ({ editorData }) => {
     const editor = useMemo(() => withReact(createEditor()), [])
-    console.log('props change, but not reRendering', editorData)
+    // console.log('props change, but not reRendering', editorData)
     return (
         <div>
             <Header text={'只读编辑器'}/>

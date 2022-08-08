@@ -57,15 +57,11 @@ const toggleBlock = (event, editor, format) => {
 }
 
 // 点击tag
-const toggleTag = (event, editor, format) => {
+const toggleTag = (event, editor) => {
     event.preventDefault()
-    const isActive = isMarkActive(format, editor)
-
-    if (isActive) {
-        Editor.removeMark(editor, format)
-    } else {
-        Editor.addMark(editor, format, true)
-    }
+    const tag = { text: '#', tag: true }
+    // TODO: show tagSelect
+    editor.insertNode(tag)
 }
 
 // 点击加入图片
@@ -73,9 +69,9 @@ const toggleImg = (event, editor, format) => {
     event.preventDefault()
     // 实际这里应该是先调用upload然后拿到返回的文件地址
     // 或者用生成的blob临时展示且占位，最终提交的时候图片再单独上传然后替换掉记录中的占位地址
-    const URL = "https://www.kffhi.com/public/images/end/logo.jpg"
+    const URL = 'https://www.kffhi.com/public/images/end/logo.jpg'
     const text = { text: '图片描述' }
-    const image = { type: 'image', url: URL, children: [text] }
+    const image = { type: format, url: URL, children: [text] }
     Transforms.insertNodes(editor, image)
 }
 

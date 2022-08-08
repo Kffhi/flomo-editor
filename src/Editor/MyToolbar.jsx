@@ -10,7 +10,7 @@ const MyToolbar = () => {
             <Button title={'无序列表'} format={'bulleted-list'} content={'⨀'} type={'block'}/>
             <Button title={'有序列表'} format={'numbered-list'} content={'①'} type={'block'}/>
             <Button title={'标签'} format={'tag'} content={'#'} type={'tag'}/>
-            <Button title={'图片'} format={'pic'} content={'🖼'} type={'image'}/>
+            <Button title={'图片'} format={'image'} content={'🖼'} type={'image'}/>
         </div>
     )
 }

@@ -13,6 +13,9 @@ const Leaf = props => {
     if (leaf.underline) {
         children = <u>{children}</u>
     }
+    if (leaf.tag) {
+        children = <span className={'tagNodeWrap'}>{children}</span>
+    }
     return <span {...attributes}>{children}</span>
 }
 
