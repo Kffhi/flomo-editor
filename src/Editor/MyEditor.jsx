@@ -20,12 +20,19 @@ const MyEditor = (props) => {
                 const { tag: isTag = false } = marks
 
                 // 如果当前节点已经是tag，发现输入空格，那就变回普通节点
-                if (event.key === ' ' && isTag) {
+                if ((
+                    event.key === ' ' || event.key === 'Enter'
+                ) && isTag) {
                     Editor.removeMark(editor, 'tag')
                 }
 
                 // 如果输入#，那就自动变成tag
-                if (event.key === '#' && !isTag) {
+                if ((
+                    event.key === '#' || (
+                        // TODO: 为什么中文的 # 号的key是Process啊
+                        event.key === 'Process' && event.code === 'Digit3'
+                    )
+                ) && !isTag) {
                     // const tag = { text: '#', tag: true }
                     Editor.addMark(editor, 'tag', true)
                 }
