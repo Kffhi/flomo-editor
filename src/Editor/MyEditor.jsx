@@ -5,6 +5,8 @@ import MyToolbar from './MyToolbar'
 import Header from '../components/Header'
 import Leaf from './Leaf'
 import Element from './Element'
+import TagSelect from './TagSelect'
+import useTagSelect from '../plugin/useTagSelect'
 
 const MyEditor = (props) => {
     const { valueChangeCB, initialValue } = props
@@ -18,6 +20,11 @@ const MyEditor = (props) => {
             if (!event.isComposing) {
                 const marks = Editor.marks(editor)
                 const { tag: isTag = false } = marks
+
+                // 如果标签选择menu展示了但是用户直接输入了，那就隐藏
+                if(useTagSelect.isShow()){
+                    useTagSelect.setVisibility(false)
+                }
 
                 // 如果当前节点已经是tag，发现输入空格，那就变回普通节点
                 if ((
@@ -35,6 +42,7 @@ const MyEditor = (props) => {
                 ) && !isTag) {
                     // const tag = { text: '#', tag: true }
                     Editor.addMark(editor, 'tag', true)
+                    useTagSelect.setVisibility(true)
                 }
 
             }
@@ -64,6 +72,7 @@ const MyEditor = (props) => {
     return (
         <div className={'editorWrap'} ref={editorRef}>
             <Header text={'编辑器'}/>
+            <TagSelect editor={editor} />
             <Slate
                 editor={editor}
                 value={value}

@@ -25,7 +25,7 @@ const Image = ({ attributes, children, element }) => {
                                        selected && focused
                                    ) ? 'removeImgBtn selected' : 'removeImgBtn'}
                     >
-                        💣
+                        ❌
                     </button>
                 </div>
             </div>

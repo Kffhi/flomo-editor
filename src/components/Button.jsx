@@ -1,6 +1,7 @@
 import React from 'react'
 import { Editor, Element as SlateElement, Transforms } from 'slate'
 import { useSlate } from 'slate-react'
+import useTagSelect from '../plugin/useTagSelect'
 
 const LIST_TYPES = ['numbered-list', 'bulleted-list']
 
@@ -60,8 +61,8 @@ const toggleBlock = (event, editor, format) => {
 const toggleTag = (event, editor) => {
     event.preventDefault()
     const tag = { text: '#', tag: true }
-    // TODO: show tagSelect
     editor.insertNode(tag)
+    useTagSelect.setVisibility(true)
 }
 
 // 点击加入图片
