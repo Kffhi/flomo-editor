@@ -28,15 +28,10 @@ const isBlockActive = (editor, format, blockType = 'type') => {
     const { selection } = editor
     if (!selection) return false
 
-    const [match] = Array.from(
-        Editor.nodes(editor, {
-            at: Editor.unhangRange(editor, selection),
-            match: n =>
-                !Editor.isEditor(n) &&
-                SlateElement.isElement(n) &&
-                n[blockType] === format
-        })
-    )
+    const [match] = Array.from(Editor.nodes(editor, {
+        at: Editor.unhangRange(editor, selection),
+        match: n => !Editor.isEditor(n) && SlateElement.isElement(n) && n[blockType] === format
+    }))
     return !!match
 }
 
@@ -47,11 +42,7 @@ const toggleBlock = (event, editor, format) => {
     const isList = LIST_TYPES.includes(format)
 
     Transforms.unwrapNodes(editor, {
-        match: n =>
-            !Editor.isEditor(n) &&
-            SlateElement.isElement(n) &&
-            LIST_TYPES.includes(n.type),
-        split: true
+        match: n => !Editor.isEditor(n) && SlateElement.isElement(n) && LIST_TYPES.includes(n.type), split: true
     })
 
     const newProperties = {
@@ -63,6 +54,29 @@ const toggleBlock = (event, editor, format) => {
         const block = { type: format, children: [] }
         Transforms.wrapNodes(editor, block)
     }
+}
+
+// 点击tag
+const toggleTag = (event, editor, format) => {
+    event.preventDefault()
+    const isActive = isMarkActive(format, editor)
+
+    if (isActive) {
+        Editor.removeMark(editor, format)
+    } else {
+        Editor.addMark(editor, format, true)
+    }
+}
+
+// 点击加入图片
+const toggleImg = (event, editor, format) => {
+    event.preventDefault()
+    // 实际这里应该是先调用upload然后拿到返回的文件地址
+    // 或者用生成的blob临时展示且占位，最终提交的时候图片再单独上传然后替换掉记录中的占位地址
+    const URL = "https://www.kffhi.com/public/images/end/logo.jpg"
+    const text = { text: '图片描述' }
+    const image = { type: 'image', url: URL, children: [text] }
+    Transforms.insertNodes(editor, image)
 }
 
 const Button = ({ title, content, format, type = 'mark' }) => {
@@ -87,6 +101,30 @@ const Button = ({ title, content, format, type = 'mark' }) => {
                 className={isBlockActive(editor, format) ? 'active' : ''}
                 onMouseDown={(event) => {
                     toggleBlock(event, editor, format)
+                }}
+            >
+                {content}
+            </button>
+        )
+    } else if (type === 'tag') {
+        return (
+            <button
+                title={title}
+                className={'tagBtn'}
+                onMouseDown={(event) => {
+                    toggleTag(event, editor, format)
+                }}
+            >
+                {content}
+            </button>
+        )
+    } else if (type === 'image') {
+        return (
+            <button
+                title={title}
+                className={isBlockActive(editor, format) ? 'active' : ''}
+                onMouseDown={(event) => {
+                    toggleImg(event, editor, format)
                 }}
             >
                 {content}
